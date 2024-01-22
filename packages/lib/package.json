@@ -31,9 +31,14 @@
       "import": "./dist/webpack.mjs",
       "require": "./dist/webpack.cjs"
     },
+    "./vite": {
+      "import": "./dist/vite.mjs",
+      "require": "./dist/vite.cjs"
+    },
     "./hydration-overlay-initializer": "./dist/hydration-overlay-initializer.js"
   },
   "scripts": {
+    "dev": "bunchee -w",
     "build": "bunchee",
     "pkg:attw": "attw --pack .",
     "pkg:publint": "publint --strict",
@@ -42,6 +47,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",
+    "vite": ">=4",
     "webpack": ">=4"
   },
   "devDependencies": {
@@ -58,6 +64,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "beautify": "^0.0.8",
     "react-diff-viewer": "^3.1.1"
   }

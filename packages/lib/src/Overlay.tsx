@@ -3,11 +3,7 @@
 import beautify from "beautify";
 import { createPortal } from "react-dom";
 import React, { useEffect, useState } from "react";
-import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
-
-const DiffViewer: typeof ReactDiffViewer = (ReactDiffViewer as any).default
-  ? (ReactDiffViewer as any).default
-  : ReactDiffViewer;
+import { DiffEditor } from "@monaco-editor/react";
 
 export function Overlay() {
   const [SSRHtml, setSSRHtml] = useState("");
@@ -71,7 +67,7 @@ export function Overlay() {
       <div
         style={{
           zIndex: 999999,
-          margin: "4rem 6rem",
+          margin: "4rem 3rem",
           backgroundColor: "white",
           borderRadius: "0.5rem",
           overflow: "auto",
@@ -116,13 +112,28 @@ export function Overlay() {
               CLOSE
             </button>
           </div>
-          <div style={{ position: "relative", width: "100%" }}>
-            <DiffViewer
-              oldValue={SSRHtml}
-              newValue={CSRHtml}
-              leftTitle={"Server-Side Render"}
-              rightTitle={"Client-Side Render"}
-              compareMethod={DiffMethod.WORDS}
+          <div style={{ display: "flex" }}>
+            <h3 style={{ flex: "1", margin: "8px 14px" }}>
+              Server-Side Render
+            </h3>
+            <h3 style={{ flex: "1", margin: "8px 14px" }}>
+              Client-Side Render
+            </h3>
+          </div>
+          <div style={{ position: "relative", width: "100%", height: "75vh" }}>
+            <DiffEditor
+              original={SSRHtml}
+              modified={CSRHtml}
+              height={"100%"}
+              options={{
+                readOnly: true,
+                minimap: { enabled: false, autohide: true },
+                renderOverviewRuler: false,
+                fontSize: 13,
+                lineHeight: 22,
+                diffWordWrap: "on",
+              }}
+              language="html"
             />
           </div>
         </div>
